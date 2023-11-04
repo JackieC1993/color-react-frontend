@@ -21,7 +21,26 @@ function ColorEditForm() {
   };
 
   // Update a color. Redirect to show view
-  const updateColor = () => {};
+  const updateColor = async () => {
+    const colorData = {name:color.name, is_favorite:color.isFavorite
+  }
+    try {
+      const response = await fetch(`${API}/colors/${index}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(colorData)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request faied with status : ${response.status}`);
+      }
+        navigate(`/colors/${index}`)
+      } catch (error) {
+        console.log("Update error", error);
+      }
+  };
 
   // On page load, fill in the form with the color data.
 
